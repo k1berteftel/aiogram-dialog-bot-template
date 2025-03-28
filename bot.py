@@ -78,6 +78,6 @@ async def main():
         await nc.close()
         logger.info('Connection closed')
 
-
+# текст
 if __name__ == "__main__":
     asyncio.run(main())
