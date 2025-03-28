@@ -4,16 +4,15 @@ from aiogram_dialog.api.entities import MediaAttachment
 from aiogram_dialog.widgets.kbd import Button, Select
 from aiogram_dialog.widgets.input import ManagedTextInput
 
+from utils.translator.translator import Translator
 from database.action_data_class import DataInteraction
 from config_data.config import load_config, Config
-from states.state_groups import startSG
+from states.state_groups import searchSG
 
 
-config: Config = load_config()
-
-
-async def start_getter(event_from_user: User, **kwargs):
-    admin = False
-    if event_from_user.id in config.bot.admin_ids:
-        admin = True
-    return {'admin': admin}
+async def start_getter(event_from_user: User, dialog_manager: DialogManager, **kwargs):
+    translator: Translator = dialog_manager.middleware_data.get('translator')
+    return {
+        'text': translator['help'],
+        'contact': translator['contact_button']
+    }
